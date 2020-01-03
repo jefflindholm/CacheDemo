@@ -10,6 +10,7 @@ namespace simple_api.Controllers {
     [ApiController]
     public class ValuesController : ControllerBase {
         ObjectCache cache = MemoryCache.Default;
+        CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(30) };
         public ValuesController() {
             if (!cache.Contains("People")) {
                 // Simple List of People for CRUD Example
@@ -30,9 +31,7 @@ namespace simple_api.Controllers {
                 people.Add("Whoopi Goldberg");
                 people.Add("John Di Lancie");
                 people.Add("Diana Muldaur");
-
-                // Set up a cache policy
-                CacheItemPolicy policy = new CacheItemPolicy { AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(5) };
+                people.Add(DateTime.Now.ToLongTimeString());
 
                 // Add a new Cache!
                 cache.Add("People", people, policy);
@@ -70,7 +69,7 @@ namespace simple_api.Controllers {
             people.Add(value);
 
             // Update the Cache
-            cache["People"] = people;
+            //cache["People"] = people;
         }
 
         // PUT api/values/5
@@ -89,7 +88,7 @@ namespace simple_api.Controllers {
             people[id] = value;
 
             // Update the Cache
-            cache["People"] = people;
+            //cache["People"] = people;
         }
 
         // DELETE api/values/5
@@ -108,7 +107,7 @@ namespace simple_api.Controllers {
             people.RemoveAt(id);
 
             // Update the Cache
-            cache["People"] = people;
+            //cache["People"] = people;
         }
     }
 }
