@@ -34,7 +34,7 @@ namespace simple_api.Controllers {
                 people.Add(DateTime.Now.ToLongTimeString());
 
                 // Add a new Cache!
-                cache.Add("People", people, policy);
+                cache.Set("People", people, policy);
 
             } // end of if
         }
@@ -69,7 +69,7 @@ namespace simple_api.Controllers {
             people.Add(value);
 
             // Update the Cache
-            //cache["People"] = people;
+            cache.Set("People", people, policy);
         }
 
         // PUT api/values/5
